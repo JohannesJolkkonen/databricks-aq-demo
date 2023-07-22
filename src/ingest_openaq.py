@@ -9,15 +9,8 @@ import json
 import pandas as pd
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col, explode
-from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
-    IntegerType,
-    DoubleType,
-    ArrayType,
-    BooleanType,
-)
+from pyspark.sql.types import (StructType,StructField,StringType,IntegerType,DoubleType,
+ArrayType,BooleanType,)
 
 # COMMAND ----------
 
@@ -30,7 +23,7 @@ json_data_list = []
 
 while True:
     print(f"fetching page {page}")
-    params = {"limit": 1000,"country": "ES","city": "Barcelona","date_from": start_date,"date_to": end_date,"page": page,
+    params = {"limit": 1000,"counztry": "ES","city": "Barcelona","date_from": start_date,"date_to": end_date,"page": page,
     }
     response = requests.get(base_url, params=params)
     json_data = response.json()
