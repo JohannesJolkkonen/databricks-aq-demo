@@ -24,11 +24,9 @@ display(df.describe())
 
 # converting timestamps to dates and times
 
-df = (
-    df.withColumn("date_utc", to_date("date_utc"))
-    .withColumn("time_utc", date_format("date_utc", "HH:mm:ss"))
-    .withColumn("date_local", to_date("date_local"))
-    .withColumn("time_local", date_format("date_local", "HH:mm:ss"))
+df = (df.withColumn("date_utc", to_date("date_utc"))
+.withColumn("time_utc", date_format("date_utc", "HH:mm:ss")).withColumn("date_local", to_date("date_local"))
+.withColumn("time_local", date_format("date_local", "HH:mm:ss"))
 )
 
 display(df)

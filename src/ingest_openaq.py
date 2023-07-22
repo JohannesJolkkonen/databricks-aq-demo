@@ -9,15 +9,8 @@ import json
 import pandas as pd
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col, explode
-from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
-    IntegerType,
-    DoubleType,
-    ArrayType,
-    BooleanType,
-)
+from pyspark.sql.types import (StructType,StructField,StringType,IntegerType,DoubleType,
+ArrayType,BooleanType,)
 
 # COMMAND ----------
 
@@ -30,13 +23,7 @@ json_data_list = []
 
 while True:
     print(f"fetching page {page}")
-    params = {
-        "limit": 1000,
-        "counztry": "ES",
-        "city": "Barcelona",
-        "date_from": start_date,
-        "date_to": end_date,
-        "page": page,
+    params = {"limit": 1000,"counztry": "ES","city": "Barcelona","date_from": start_date,"date_to": end_date,"page": page,
     }
     response = requests.get(base_url, params=params)
     json_data = response.json()
@@ -55,22 +42,20 @@ df = spark.read.json(spark.sparkContext.parallelize([json_data]))
 
 df = df.select(explode("results").alias("results"))
 
-df = df.select(
-    col("results.locationId").alias("locationId"),
-    col("results.location").alias("location"),
-    col("results.parameter").alias("parameter"),
-    col("results.value").alias("value"),
-    col("results.date.utc").alias("date_utc"),
-    col("results.date.local").alias("date_local"),
-    col("results.unit").alias("unit"),
-    col("results.coordinates.latitude").alias("latitude"),
-    col("results.coordinates.longitude").alias("longitude"),
-    col("results.country").alias("country"),
-    col("results.city").alias("city"),
-    col("results.isMobile").alias("isMobile"),
-    col("results.isAnalysis").alias("isAnalysis"),
-    col("results.entity").alias("entity"),
-    col("results.sensorType").alias("sensorType"),
+df = df.select(col("results.locationId").alias("locationId"),col("results.location").alias("location"),
+col("results.parameter").alias("parameter"),
+col("results.value").alias("value"),
+col("results.date.utc").alias("date_utc"),
+col("results.date.local").alias("date_local"),
+col("results.unit").alias("unit"),
+col("results.coordinates.latitude").alias("latitude"),
+col("results.coordinates.longitude").alias("longitude"),
+col("results.country").alias("country"),
+col("results.city").alias("city"),
+col("results.isMobile").alias("isMobile"),
+col("results.isAnalysis").alias("isAnalysis"),
+col("results.entity").alias("entity"),
+col("results.sensorType").alias("sensorType"),
 )
 display(df)
 
